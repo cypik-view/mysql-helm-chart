@@ -3,10 +3,10 @@ kind: PersistentVolumeClaim
 metadata:
   name: {{ .Values.pvc.name }}
   labels:
-    app: mysql
+    app: {{ .Chart.Name }}
 spec:
   accessModes:
-    {{ .Values.pvc.accessModes }}
+    - {{ .Values.pvc.accessModes }}
   resources:
     requests:
       storage: {{ .Values.pvc.storage }}

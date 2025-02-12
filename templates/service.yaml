@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: {{ .Values.service.name }}
   labels:
-    app: mysql
+    app: {{ .Chart.Name }}
 spec:
   clusterIP: None
   ports:
     - port: {{ .Values.service.port }}
   selector:
-    app: mysql
+    app: {{ .Chart.Name }}

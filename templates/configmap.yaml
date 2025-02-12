@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: init-config
+  name: {{ .Values.configMap.init.name }}
 data:
   init.sql: |
     --
@@ -1875,6 +1875,6 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: tenants-config
+  name: {{ .Values.configMap.tenants.name }}
 data:
   tenants.sql: |

@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mysql
+  name: {{ .Chart.Name }}
   labels:
-    app: mysql
+    app: {{ .Chart.Name }}
 spec:
-  serviceName: "mysql"
+  serviceName: {{ .Values.service.name }}
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: mysql
+      app: {{ .Chart.Name }}
   template:
     metadata:
       labels:
-        app: mysql
+        app: {{ .Chart.Name }}
     spec:
       terminationGracePeriodSeconds: 10
       containers:
-        - name: mysql
+        - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - containerPort: {{ .Values.service.port }}
@@ -41,16 +41,16 @@ spec:
       volumes:
         - name: mysql-init
           configMap:
-            name: init-config
+            name: {{ .Values.configMap.init.name }}
             items:
-              - key: init.sql
+              - key: {{ .Values.configMap.init.key }}
                 path: 01_setup.sql
 
         - name: mysql-tenants
           configMap:
-            name: tenants-config
+            name: {{ .Values.configMap.tenants.name }}
             items:
-              - key: tenants.sql
+              - key: {{ .Values.configMap.tenants.key }}
                 path: 02_tenants.sql
 
         - name: mysql-data
